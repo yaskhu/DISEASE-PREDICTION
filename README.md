@@ -1,2 +1,18 @@
-# DISEASE-PREDICTION
-An AI-powered Disease Prediction System developed using Python and Machine Learning algorithms to predict possible diseases based on user symptoms and health-related inputs. The project includes data preprocessing, model training, prediction generation, and a user-friendly interface for accurate and efficient disease analysis.
+# Disease Prediction System
+
+An AI-powered Disease Prediction System built using Python and Machine Learning techniques. The system predicts possible diseases based on symptoms and health-related inputs provided by the user.
+
+## Features
+- Disease prediction using ML algorithms
+- Data preprocessing and model training
+- Symptom-based prediction
+- User-friendly interface
+- Fast and accurate predictions
+
+## Technologies Used
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Matplotlib
+- Flask / Django (if used)
