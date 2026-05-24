@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .form-container h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .form-subtitle {
+            color: #999;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .form-label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-control, .form-select {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .form-errors {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <a href="{% url 'predictor:home' %}" class="back-link">← Back to Home</a>
+        
+        <h1>📋 Health Information</h1>
+        <p class="form-subtitle">Enter your health metrics to get a disease prediction</p>
+        
+        {% if error %}
+            <div class="error-message">
+                {{ error }}
+            </div>
+        {% endif %}
+        
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            
+            <!-- Row 1: Age and Sex -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">{{ form.age.label }}</label>
+                    {{ form.age }}
+                    {% if form.age.errors %}
+                        <div class="form-errors">{{ form.age.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">{{ form.sex.label }}</label>
+                    {{ form.sex }}
+                    {% if form.sex.errors %}
+                        <div class="form-errors">{{ form.sex.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Chest Pain Type -->
+            <div class="form-group">
+                <label class="form-label">{{ form.cp.label }}</label>
+                {{ form.cp }}
+                {% if form.cp.errors %}
+                    <div class="form-errors">{{ form.cp.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <!-- Row 2: Blood Pressure and Cholesterol -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">{{ form.trestbps.label }}</label>
+                    {{ form.trestbps }}
+                    {% if form.trestbps.errors %}
+                        <div class="form-errors">{{ form.trestbps.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">{{ form.chol.label }}</label>
+                    {{ form.chol }}
+                    {% if form.chol.errors %}
+                        <div class="form-errors">{{ form.chol.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Row 3: Blood Sugar and ECG -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">{{ form.fbs.label }}</label>
+                    {{ form.fbs }}
+                    {% if form.fbs.errors %}
+                        <div class="form-errors">{{ form.fbs.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">{{ form.restecg.label }}</label>
+                    {{ form.restecg }}
+                    {% if form.restecg.errors %}
+                        <div class="form-errors">{{ form.restecg.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Row 4: Heart Rate and Angina -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">{{ form.thalach.label }}</label>
+                    {{ form.thalach }}
+                    {% if form.thalach.errors %}
+                        <div class="form-errors">{{ form.thalach.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">{{ form.exang.label }}</label>
+                    {{ form.exang }}
+                    {% if form.exang.errors %}
+                        <div class="form-errors">{{ form.exang.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Row 5: ST Depression and Slope -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">{{ form.oldpeak.label }}</label>
+                    {{ form.oldpeak }}
+                    {% if form.oldpeak.errors %}
+                        <div class="form-errors">{{ form.oldpeak.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">{{ form.slope.label }}</label>
+                    {{ form.slope }}
+                    {% if form.slope.errors %}
+                        <div class="form-errors">{{ form.slope.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Row 6: Major Vessels and Thalassemia -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">{{ form.ca.label }}</label>
+                    {{ form.ca }}
+                    {% if form.ca.errors %}
+                        <div class="form-errors">{{ form.ca.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">{{ form.thal.label }}</label>
+                    {{ form.thal }}
+                    {% if form.thal.errors %}
+                        <div class="form-errors">{{ form.thal.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">Get Prediction</button>
+        </form>
+    </div>
+</body>
+</html>
